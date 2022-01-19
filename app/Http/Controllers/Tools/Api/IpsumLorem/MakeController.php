@@ -5,26 +5,35 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Tools\Api\IpsumLorem;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\IpsumLoremRequest;
+use App\Service\IpsumLorem\IpsumLoremGenerateService;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
 #[Prefix('api/ipsum-lorem')]
 class MakeController extends Controller
 {
-    #[Get('/')]
-    public function __invoke(): string
+    protected IpsumLoremGenerateService $ipsumLoremGenerateService;
+
+    public function __construct(IpsumLoremGenerateService $ipsumLoremGenerateService)
     {
-        $text = '동주는 별로 말주변도 사귐성도 없었건만 그의 방에는 언제나 친구들이 가득 차있었다. 아무리 바쁜 일이 있더라도 동주 있나 하고 찾으면 하던 일을 모두 내 던지고 빙그레 웃으며 반가이 마주 앉아 주는 것이었다.
-                동주 좀 걸어 보자구 이렇게 산책을 청하면 싫다는 적이 없었다. 겨울이든 여름이든 밤이든 새벽이든 산이든 들이든 강가이든 아무런 때 아무데를 끌어도 선뜻 따라 나서는 것이었다. 그는 말이 없이 묵묵히 걸었고 항시 그의 얼굴은 침울하였다. 가끔 그러다가 나오는 외마디 비참한 고함을 잘 질렀다.
-                하고 나오는 외마디 소리! 그것은 언제나 친구들의 마음에 알지못할 울분을 주었다.
-                동주 돈 좀 있나 옹색한 친구들은 곧잘 그의 넉넉지 못한 주머니를 노리었다. 그는 있고서 안주는 법이 없었고 없으면 대신 외투든 시계든 내 주고야 마음을 놓았다. 그래서 그의 외투나 시계는 친구들의 손을 거쳐 전당포 나들기를 부지런이 하였다.
-                이런 동주도 친구들에게 굳이 사양하는 일이 두가지 있었다. 하나는 동주 자네 시 여기를 좀 고치면 어떤가 하는데 대하여 그는 응하여 주는 법이 없었다. 조용히 열흘이고 한 달이고 두 달이고 곰곰이 생각하여 한 편 시를 탄생시킨다. 그 때까지는 누구에게도 그 시를 보이지 않는다. 이미 보여주는 때는 하나의 옥이다. 지나치게 그는 겸허온순하였건만 자기의 시만은 양보하지를 않았다.
-                그리고 또 하나 그는 한 여성을 사랑하였다. 그러나 이 사랑을 그 여성에게도 친구들에게도 끝내 고백하지 아니하였다. 그 여성도 모르는 친구들도 모르는 사랑을 회답도 없고 돌아오지도 않는 사랑을 제 홀로 간직한채 고민도 하면서 희망도 하면서
-                쑥쓰럽다 할까 어리석다 할까? 그러나 이제 와 고쳐 생각하니 이것은 한 여성에 대한 사랑이 아니라 이루어지지 않을 또 다른 고향 에 관한 꿈이 아니었던가. 어쨌든 친구들에게 이것만은 힘써 감추었다.
-                그는 간도에서 나고 일본복강에서 죽었다. 이역에서 나고 갔건만 무던이 조국을 사랑하고 우리말을 좋아하더니 그는 나의 친구기도 하려니와 그의 아잇적동무 송몽규와 함께 독립운동의 죄명으로 이년형을 받아 감옥에 들어 간채 마침내 모진 악형에 쓸어지고 말았다. 그것은 몽규와 동주가 연전을 마치고 경도에 가서 대학생 노릇하던 중도의 일이었다.';
-        $explodeString = explode(' ', $text);
-        shuffle($explodeString);
-        return implode(' ', array_slice($explodeString,0, 50));
+        $this->ipsumLoremGenerateService = $ipsumLoremGenerateService;
+    }
+
+    #[Get('/{category}/{count}')]
+    public function __invoke(int $category, int $count): \Illuminate\Http\JsonResponse
+    {
+        return response()->json(
+            [
+                'code' => 200,
+                'message' => 'success',
+                'data' => $this->ipsumLoremGenerateService->getGenerateIpsumLorem($category, $count),
+
+            ],
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
 }
