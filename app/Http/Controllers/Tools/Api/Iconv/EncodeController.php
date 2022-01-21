@@ -34,7 +34,6 @@ class EncodeController extends Controller
                 'code' => Response::HTTP_OK,
                 'message' => 'success',
                 'data' => iconv($fromEncoding, $toEncoding . '//TRANSLIT', $string),
-
             ],
             200,
             [],
