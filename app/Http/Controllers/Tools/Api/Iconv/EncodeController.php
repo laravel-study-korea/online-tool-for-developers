@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Tools\Api\Iconv;
 use App\Http\Controllers\Controller;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Prefix;
+use Symfony\Component\HttpFoundation\Response;
 
 #[Prefix('api/iconv')]
 class EncodeController extends Controller
@@ -22,15 +23,22 @@ class EncodeController extends Controller
     ];
 
     #[Get('/{fromEncoding}/{toEncoding}/{string}')]
-    public function __invoke(string $fromEncoding, string $toEncoding, string $string): string|bool
+    public function __invoke(string $fromEncoding, string $toEncoding, string $string): \Illuminate\Http\JsonResponse
     {
         if (! in_array($fromEncoding, self::ENCODE_CHARSET) || ! in_array($toEncoding, self::ENCODE_CHARSET)) {
             throw new \InvalidArgumentException();
         }
 
-        /**
-         * //TRANSLIT: 나타낼 수 없는 문자일 경우, 문자를 유사한 문자로 표시함.
-         */
-        return iconv($fromEncoding, $toEncoding . '//TRANSLIT', $string);
+        return response()->json(
+            [
+                'code' => Response::HTTP_OK,
+                'message' => 'success',
+                'data' => iconv($fromEncoding, $toEncoding . '//TRANSLIT', $string),
+
+            ],
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 }
