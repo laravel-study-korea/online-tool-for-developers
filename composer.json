@@ -13,12 +13,12 @@
         "laravel/socialite": "^5.3",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "socialiteproviders/github": "^4.1",
         "spatie/laravel-route-attributes": "^1.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
-        "beyondcode/expose": "^2.0",
         "beyondcode/laravel-dump-server": "^1.7",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
