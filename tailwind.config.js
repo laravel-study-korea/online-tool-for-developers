@@ -3,7 +3,11 @@ module.exports = {
         "./resources/**/*.js",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontSize: {
+                'zero': '0',
+            }
+        },
     },
     plugins: [],
 }

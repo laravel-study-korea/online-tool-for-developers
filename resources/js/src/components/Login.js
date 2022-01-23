@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {Link} from "react-router-dom";
 
 
 class Login extends Component {
@@ -6,7 +7,7 @@ class Login extends Component {
         return(
             <div className="min-h-screen flex flex-col justify-center sm:py-12">
                 <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-                    <h1 className="font-bold text-center text-2xl mb-5">Your Logo</h1>
+                    <Link to="/"><h1 className="font-bold text-center text-2xl mb-5">Home</h1></Link>
                     <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                         <div className="px-5 py-7">
                             <label className="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
