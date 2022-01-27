@@ -13,16 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 #[Prefix('api/iconv')]
 class EncodeController extends Controller
 {
-    public const ENCODE_CHARSET = [
-        'UTF-8',
-        'ASCII',
-        'Windows-1252',
-        'ISO-8859-15',
-        'ISO-8859-1',
-        'ISO-8859-6',
-        'CP1256',
-    ];
-
     /**
      * @param string $fromEncoding
      * @param string $toEncoding
@@ -35,7 +25,7 @@ class EncodeController extends Controller
         $fromEncoding = Str::upper($fromEncoding);
         $toEncoding = Str::upper($toEncoding);
 
-        if (! in_array($fromEncoding, self::ENCODE_CHARSET) || ! in_array($toEncoding, self::ENCODE_CHARSET)) {
+        if (! in_array($fromEncoding, config('iconv.charset')) || ! in_array($toEncoding, config('iconv.charset'))) {
             throw new \InvalidArgumentException();
         }
 
