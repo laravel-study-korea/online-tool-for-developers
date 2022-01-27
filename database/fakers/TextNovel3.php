@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 namespace Database\Fakers;
-
 use Faker\Provider\Text;
 
-class TextNovel1 extends Text
+class TextNovel3 extends Text
 {
     /**
      * <code>
      * $faker = new \Faker\Generator();
-     * $faker->addProvider(new Database\Fakers\TextNovel1($faker));
-     * $faker->realText();
+    $faker->addProvider(new Database\Fakers\TextNovel1($faker));
+    $faker->realText();
      * </code>
      * @var string
      */

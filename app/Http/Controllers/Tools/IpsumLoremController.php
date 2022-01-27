@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Tools\IpsumLorem;
+namespace App\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
 use Spatie\RouteAttributes\Attributes\Get;
