@@ -20,12 +20,23 @@ class EncodeController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     #[Get('/{fromEncoding}/{toEncoding}/{string}')]
-    public function __invoke(string $fromEncoding, string $toEncoding, string $string): \Illuminate\Http\JsonResponse
-    {
+    public function __invoke(
+        string $fromEncoding,
+        string $toEncoding,
+        string $string
+    ): \Illuminate\Http\JsonResponse {
         $fromEncoding = Str::upper($fromEncoding);
         $toEncoding = Str::upper($toEncoding);
 
-        if (! in_array($fromEncoding, config('iconv.charset')) || ! in_array($toEncoding, config('iconv.charset'))) {
+        if (! in_array($fromEncoding, config('iconv.charset')) ||
+            ! in_array($toEncoding, config('iconv.charset'))
+        ) {
+            throw new \InvalidArgumentException();
+        }
+
+        if (mb_detect_encoding($string, $fromEncoding) === false ||
+            mb_detect_encoding($string, $toEncoding) === false
+        ) {
             throw new \InvalidArgumentException();
         }
 
