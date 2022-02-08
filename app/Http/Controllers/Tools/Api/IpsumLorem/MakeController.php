@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Tools\Api\IpsumLorem;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IpsumLoremRequest;
-use App\Service\IpsumLorem\IpsumLoremGenerateService;
+use App\Services\IpsumLorem\IpsumLoremGenerateService;
+use Illuminate\Http\JsonResponse;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Prefix;
+use Symfony\Component\HttpFoundation\Response;
 
 #[Prefix('api/ipsum-lorem')]
 class MakeController extends Controller
@@ -20,17 +22,16 @@ class MakeController extends Controller
         $this->ipsumLoremGenerateService = $ipsumLoremGenerateService;
     }
 
-    #[Get('/{category}/{count}')]
-    public function __invoke(int $category, int $count): \Illuminate\Http\JsonResponse
+    #[Get('/')]
+    public function __invoke(IpsumLoremRequest $request): JsonResponse
     {
         return response()->json(
             [
-                'code' => 200,
+                'result' => true,
                 'message' => 'success',
-                'data' => $this->ipsumLoremGenerateService->getGenerateIpsumLorem($category, $count),
-
+                'data' => $this->ipsumLoremGenerateService->getGenerateIpsumLorem($request->toDto()),
             ],
-            200,
+            Response::HTTP_OK,
             [],
             JSON_UNESCAPED_UNICODE
         );
