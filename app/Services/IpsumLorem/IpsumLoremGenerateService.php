@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\IpsumLorem;
+namespace App\Services\IpsumLorem;
 
-use Faker\Generator as Generator;
+use App\Services\IpsumLorem\Dto\IpsumLoremDto;
+use Faker\Generator;
 
 class IpsumLoremGenerateService
 {
@@ -17,12 +18,12 @@ class IpsumLoremGenerateService
         $this->generator = $generator;
     }
 
-    public function getGenerateIpsumLorem($category, $count): string
+    public function getGenerateIpsumLorem(IpsumLoremDto $ipsumLoremDto): string
     {
-        $className = self::FAKER_NAME.$category;
+        $className = self::FAKER_NAME.$ipsumLoremDto->category;
         $this->generator->addProvider(new $className($this->generator));
 
-        return $this->generator->realText($count);
+        return $this->generator->realText($ipsumLoremDto->count);
     }
 
 }
