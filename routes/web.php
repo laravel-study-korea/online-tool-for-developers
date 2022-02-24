@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\GithubController;
+use App\Http\Controllers\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/auth/github',[GithubController::class, 'redirectToProvider'])
-    ->name('auth.github');
-Route::get('/auth/github-callback',[GithubController::class,'handleProviderCallback'])
-    ->name('auth.github-callback');
+Route::get('/auth/{SocialLoginService}}', [SocialLoginController::class, 'redirectToProvider'])
+    ->name('auth.{SocialLoginService}');
+Route::get('/auth/{SocialLoginService}-callback', [SocialLoginController::class, 'handleProviderCallback'])
+    ->name('auth.{SocialLoginService}-callback');

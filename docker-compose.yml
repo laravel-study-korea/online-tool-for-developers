@@ -31,6 +31,22 @@ services:
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
         networks:
             - app-network
+    #MySQL Service
+    db:
+        image: mysql:8.0
+        container_name: db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            SERVICE_NAME: mysql
+        networks:
+            - app-network
 
 #Docker Networks
 networks:
