@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+
+import Main from "./components/Main";
 import Login from "./components/Login";
 
 function App() {
     return (
-        <div className="container m-auto">
-            <Login/>
+        <div className="w-full">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Main />}/>
+                    <Route path="/login" element={<Login />}/>
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }
