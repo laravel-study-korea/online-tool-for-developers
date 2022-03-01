@@ -17,7 +17,7 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', function () {
+Route::get('/{path?}', function () {
     return view('index');
 });
 
